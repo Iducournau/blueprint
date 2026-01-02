@@ -7,10 +7,20 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ArrowLeft } from 'lucide-react'
 
+const PROJECT_TYPES = [
+  { value: 'plateforme', label: 'Plateforme', description: 'App avec plusieurs modules' },
+  { value: 'landing', label: 'Landing Page', description: 'Page unique, souvent A/B test' },
+  { value: 'dashboard', label: 'Dashboard', description: 'Visualisation de données' },
+  { value: 'outil', label: 'Outil interne', description: 'App métier spécifique' },
+  { value: 'integration', label: 'Intégration', description: 'Connecteur, API, automatisation' },
+]
+
 export default function NewProjectPage() {
   const router = useRouter()
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [type, setType] = useState('outil')
+  const [hasModules, setHasModules] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleCreate = async (e: React.FormEvent) => {
@@ -24,21 +34,18 @@ export default function NewProjectPage() {
       return
     }
 
-  // Crée le projet
-    console.log('User ID:', session.user.id)
-    console.log('Données:', { name, description, user_id: session.user.id })
-
+    // Crée le projet
     const { data: project, error } = await supabase
       .from('projects')
       .insert({
         name,
         description,
+        type,
+        has_modules: hasModules,
         user_id: session.user.id,
       })
       .select()
       .single()
-
-    console.log('Réponse Supabase:', { project, error })
 
     if (error || !project) {
       console.error('Erreur création projet:', error)
@@ -47,13 +54,15 @@ export default function NewProjectPage() {
       return
     }
 
-    // Crée les blocs par défaut
-    await supabase.from('blocks').insert([
-      { project_id: project.id, tab: 'objectifs', type: 'problem', content: '', order: 1 },
-      { project_id: project.id, tab: 'objectifs', type: 'solution', content: '', order: 2 },
-      { project_id: project.id, tab: 'objectifs', type: 'kpis', content: '', order: 3 },
-      { project_id: project.id, tab: 'architecture', type: 'stack', content: '', order: 1 },
-    ])
+    // Si pas de modules, crée les blocs par défaut sur le projet
+    if (!hasModules) {
+      await supabase.from('blocks').insert([
+        { project_id: project.id, tab: 'objectifs', type: 'problem', content: '', order: 1 },
+        { project_id: project.id, tab: 'objectifs', type: 'solution', content: '', order: 2 },
+        { project_id: project.id, tab: 'objectifs', type: 'kpis', content: '', order: 3 },
+        { project_id: project.id, tab: 'architecture', type: 'stack', content: '', order: 1 },
+      ])
+    }
 
     router.push(`/project/${project.id}`)
   }
@@ -78,13 +87,14 @@ export default function NewProjectPage() {
         <h1 className="text-2xl font-semibold text-gray-900 mb-8">Nouveau projet</h1>
 
         <form onSubmit={handleCreate} className="space-y-6">
+          {/* Nom */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Nom du projet
             </label>
             <Input
               type="text"
-              placeholder="Ex: Hub, COCKPIT, App Mobile..."
+              placeholder="Ex: Hub, COCKPIT, LP Mode..."
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -92,6 +102,7 @@ export default function NewProjectPage() {
             />
           </div>
 
+          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Description
@@ -104,6 +115,54 @@ export default function NewProjectPage() {
               required
               className="h-12"
             />
+          </div>
+
+          {/* Type */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Type de projet
+            </label>
+            <div className="grid gap-2">
+              {PROJECT_TYPES.map((t) => (
+                <label
+                  key={t.value}
+                  className={`flex items-center p-4 border rounded-lg cursor-pointer transition-all ${
+                    type === t.value
+                      ? 'border-indigo-500 bg-indigo-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="type"
+                    value={t.value}
+                    checked={type === t.value}
+                    onChange={(e) => setType(e.target.value)}
+                    className="sr-only"
+                  />
+                  <div>
+                    <div className="font-medium text-gray-900">{t.label}</div>
+                    <div className="text-sm text-gray-500">{t.description}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Avec modules */}
+          <div>
+            <label className="flex items-center justify-between p-4 border border-gray-200 rounded-lg cursor-pointer hover:border-gray-300">
+              <div>
+                <div className="font-medium text-gray-900">Avec modules</div>
+                <div className="text-sm text-gray-500">Le projet contient plusieurs sous-parties</div>
+              </div>
+              <input
+                type="checkbox"
+                checked={hasModules}
+                onChange={(e) => setHasModules(e.target.checked)}
+                className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
+              />
+            </label>
           </div>
 
           <Button 

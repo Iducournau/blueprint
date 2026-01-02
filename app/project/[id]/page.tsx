@@ -205,41 +205,43 @@ export default function ProjectPage() {
         </Tabs>
       </main>
 
-      {/* Drawer d'édition */}
-      <Sheet open={!!editingBlock} onOpenChange={(open) => !open && closeDrawer()}>
-        <SheetContent className="w-[400px] sm:w-[540px]">
-          <SheetHeader>
-            <SheetTitle>
-              {editingBlock ? blockLabels[editingBlock.type] || editingBlock.type : ''}
-            </SheetTitle>
-          </SheetHeader>
-          
-          <div className="mt-6 space-y-4">
-            <textarea
-              value={editContent}
-              onChange={(e) => setEditContent(e.target.value)}
-              placeholder="Écris ici..."
-              className="w-full h-64 p-4 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-gray-900"
-            />
-            
-            <div className="flex gap-2">
-              <Button 
-                onClick={saveBlock} 
-                disabled={saving}
-                className="flex-1"
-              >
-                {saving ? 'Enregistrement...' : 'Enregistrer'}
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={closeDrawer}
-              >
-                Annuler
-              </Button>
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
+{/* Drawer d'édition */}
+<Sheet open={!!editingBlock} onOpenChange={(open) => !open && closeDrawer()}>
+  <SheetContent className="w-[400px] sm:w-[540px] p-0">
+    <div className="p-6 border-b border-gray-100">
+      <SheetHeader>
+        <SheetTitle>
+          {editingBlock ? blockLabels[editingBlock.type] || editingBlock.type : ''}
+        </SheetTitle>
+      </SheetHeader>
+    </div>
+    
+    <div className="p-6 space-y-6">
+      <textarea
+        value={editContent}
+        onChange={(e) => setEditContent(e.target.value)}
+        placeholder="Écris ici..."
+        className="w-full h-72 p-4 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900"
+      />
+      
+      <div className="flex gap-3">
+        <Button 
+          onClick={saveBlock} 
+          disabled={saving}
+          className="flex-1"
+        >
+          {saving ? 'Enregistrement...' : 'Enregistrer'}
+        </Button>
+        <Button 
+          variant="outline" 
+          onClick={closeDrawer}
+        >
+          Annuler
+        </Button>
+      </div>
+    </div>
+  </SheetContent>
+</Sheet>
     </div>
   )
 }
