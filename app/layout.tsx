@@ -24,7 +24,7 @@ const dmSerif = DM_Serif_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Cockpit",
+  title: "Blueprint",
   description: "Outil de pilotage de projets",
 };
 

@@ -39,7 +39,7 @@ export default function LoginPage() {
           className="text-4xl text-center mb-12 text-gray-900"
           style={{ fontFamily: 'var(--font-dm-serif)' }}
         >
-          Cockpit.
+          Blueprint.
         </h1>
 
         {/* Erreur */}

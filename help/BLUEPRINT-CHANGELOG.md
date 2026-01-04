@@ -1,10 +1,32 @@
-# COCKPIT — Changelog
+# BLUEPRINT — Changelog
 
 > Historique des modifications du projet
 
 ---
 
-## [0.2.0] - 2 janvier 2026 (en cours)
+## [0.3.0] - 2 janvier 2026 (à venir)
+
+### 🆕 Rebranding
+- Renommage COCKPIT → **Blueprint**
+- Nouveau pitch : "Dans Blueprint, un problème devient un brief, un brief devient un projet, un projet devient une solution. Et chaque solution continue de vivre."
+- Architecture en 3 espaces : Briefs → Projets → Solutions
+
+### 🆕 Espace Briefs (à développer)
+- [ ] Formulaire de brief conversationnel (10 écrans)
+- [ ] Liste des briefs avec filtres par statut
+- [ ] Page brief avec propositions de solutions
+- [ ] Conversion brief → projet
+- [ ] Email notification à la soumission
+
+### 🆕 Système de validation (à développer)
+- [ ] Validation par bloc (✅/❌/💬)
+- [ ] Signature + date sur chaque validation
+- [ ] Bouton "Demander validation"
+- [ ] Vue "En attente de validation"
+
+---
+
+## [0.2.0] - 2 janvier 2026
 
 ### 🆕 Ajouté
 - Champ `type` sur les projets (5 types disponibles)
@@ -17,7 +39,7 @@
 
 ### 📋 À faire
 - [ ] Adapter page projet pour afficher modules si `has_modules = true`
-- [ ] Créer page module `/project/[id]/module/[moduleId]`
+- [ ] Créer page module `/projects/[id]/modules/[moduleId]`
 - [ ] Créer/supprimer des modules
 
 ---
@@ -41,7 +63,7 @@
 - RLS activé avec policies pour utilisateurs authentifiés
 
 ### 🎨 Design
-- Logo "Cockpit." en DM Serif Display
+- Logo "Blueprint." en DM Serif Display
 - Style minimaliste
 - Composants shadcn/ui (button, card, input, tabs, sheet, dialog)
 
@@ -64,27 +86,35 @@
 - [x] Page projet avec onglets
 - [x] Blocs éditables
 - [x] Déploiement Vercel
-- [ ] Types de projet
+- [x] Types de projet
+- [ ] **Espace Briefs**
+- [ ] Formulaire brief conversationnel
+- [ ] Propositions de solutions
+- [ ] Conversion brief → projet
+- [ ] Validation par bloc
 - [ ] Support modules
 - [ ] Tous les onglets (Rôles, Fonctionnalités, Roadmap, Notice)
 - [ ] Mot de passe oublié
 - [ ] Dark mode
 
-### V2 — Édition avancée
-- [ ] Markdown dans les blocs
-- [ ] Créer/supprimer/réorganiser des blocs
-- [ ] Créer/renommer/supprimer des onglets personnalisés
-
-### V3 — Collaboration
+### V2 — Collaboration & Notifications
+- [ ] **Espace Solutions**
+- [ ] Email sur demande de validation
+- [ ] Relance auto J+3, J+7
+- [ ] Lien public lecture seule
+- [ ] Validation de jalon
+- [ ] Alerte projet zombie
 - [ ] Rôles (Owner, Editor, Viewer)
 - [ ] Commentaires sur les blocs
-- [ ] Système de validation (✅/❌/💬)
 
-### V4 — Suivi
+### V3 — Évolution & Intelligence
+- [ ] Versioning des solutions (Hub v1, v2, v3...)
 - [ ] Dashboard de suivi projet
 - [ ] Historique des modifications
+- [ ] Export PDF
+- [ ] Suggestions IA
 
-### V5 — Automatisation
+### V4 — Automatisation
 - [ ] Intégrations (Notion, Slack...)
-- [ ] Notifications
+- [ ] Notifications avancées
 - [ ] Agents IA

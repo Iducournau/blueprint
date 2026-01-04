@@ -75,7 +75,7 @@ export default function HomePage() {
             className="text-2xl text-gray-900"
             style={{ fontFamily: 'var(--font-dm-serif)' }}
           >
-            Cockpit.
+            Blueprint.
           </h1>
           <div className="flex items-center gap-4">
             <span className="text-sm text-gray-500">{userEmail}</span>

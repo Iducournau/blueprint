@@ -1,4 +1,4 @@
-# COCKPIT — Contraintes & Décisions
+# BLUEPRINT — Contraintes & Décisions
 
 > Journal des contraintes projet et décisions techniques
 
@@ -30,6 +30,32 @@
 ---
 
 ## ✅ Décisions prises
+
+### 2 janvier 2026 — Rebranding
+
+| Décision | Choix | Raison |
+|----------|-------|--------|
+| Nom de l'outil | Blueprint | Évoque le plan de référence, la source de vérité |
+| Structure | 3 espaces (Briefs, Projets, Solutions) | Couvre tout le cycle de vie |
+| Pitch | "Un problème → brief → projet → solution" | Narratif clair |
+
+### 2 janvier 2026 — Workflow Brief → Projet
+
+| Décision | Choix | Raison |
+|----------|-------|--------|
+| Séparation Brief / Projet | Oui | Le demandeur décrit le problème, pas la solution |
+| Qui propose les solutions | Product Builder | Expertise et flexibilité |
+| Formulaire brief | Conversationnel (10 écrans) | UX agréable, pas un formulaire admin |
+| Champs obligatoires | Aucun en V1 | Flexibilité, éviter la friction |
+
+### 2 janvier 2026 — Validation
+
+| Décision | Choix | Raison |
+|----------|-------|--------|
+| Granularité | Par bloc | Permet validation fine et progressive |
+| États | ✅/❌/💬/🟡 | Couvre tous les cas |
+| Signature | Qui + Quand | Traçabilité |
+| Notification brief | Email (sauf auto-soumission) | Product Builder informée immédiatement |
 
 ### 2 janvier 2026 — Stack technique
 
@@ -69,7 +95,7 @@
 |----------|-------|--------|
 | Édition | Drawer latéral | Pattern Notion-like |
 | Navigation | Tabs pour onglets | Familier |
-| Logo | "Cockpit." en DM Serif Display | Minimaliste |
+| Logo | "Blueprint." en DM Serif Display | Minimaliste |
 
 ---
 
@@ -80,7 +106,7 @@
 | Markdown dans blocs ? | Oui / Non / Optionnel | V1 ou V2 |
 | Dark mode | Toggle / System pref / Non | V1 |
 | Export projet | PDF / Markdown / Non | V2 |
-| Notifications | Email / In-app / Non | V3 |
+| Notifications email validation | Immédiat / Digest / Non | V2 |
 
 ---
 
@@ -88,6 +114,7 @@
 
 | Hypothèse | Comment valider |
 |-----------|-----------------|
-| Les 6 onglets couvrent tous les besoins | Usage réel sur premiers projets |
-| La structure avec modules est utile | Tester avec Hub |
-| L'édition par bloc est suffisante | Feedback utilisateurs |
+| Le workflow brief → projet éduque les demandeurs | Usage réel sur premiers briefs |
+| La validation par bloc est suffisante | Feedback utilisateurs |
+| Le formulaire conversationnel est agréable | Test CMO |
+| L'espace Solutions sera utile | Tester quand Hub sera live |

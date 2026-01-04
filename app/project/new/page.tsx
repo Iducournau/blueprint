@@ -94,7 +94,7 @@ export default function NewProjectPage() {
             </label>
             <Input
               type="text"
-              placeholder="Ex: Hub, COCKPIT, LP Mode..."
+              placeholder="Ex: Hub, Bluprint, LP Mode..."
               value={name}
               onChange={(e) => setName(e.target.value)}
               required

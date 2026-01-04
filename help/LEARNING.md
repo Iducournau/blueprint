@@ -1,4 +1,4 @@
-# 📖 Carnet de référence — COCKPIT
+# 📖 Carnet de référence — BLUEPRINT
 
 > Mon carnet personnel pour retrouver les notions apprises avec Claude.
 

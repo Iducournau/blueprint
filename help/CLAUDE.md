@@ -1,308 +1,331 @@
-# COCKPIT â€” Instructions Claude
+# BLUEPRINT — Instructions Claude
 
-## ðŸŽ¯ Contexte
+## 🎯 Contexte
 
-**COCKPIT** est un outil de pilotage de projets pour le Product Builder de YouSchool.
-Il permet de lancer, organiser et suivre des solutions et produits digitaux internes dÃ©veloppÃ©s en no-code / low-code.
+**Blueprint** est un outil de pilotage de projets pour le Product Builder de YouSchool.
+Il permet de lancer, organiser et suivre des solutions et produits digitaux internes développés en no-code / low-code.
 
-## ðŸ’¡ Proposition de valeur
+## 💬 Le pitch
 
-> Centraliser le cadrage, la documentation et le suivi de chaque projet interne dans une interface unique et structurÃ©e.
+> **"Dans Blueprint, un problème devient un brief, un brief devient un projet, un projet devient une solution. Et chaque solution continue de vivre."**
 
-| ProblÃ¨me | Solution COCKPIT |
-|----------|------------------|
-| Specs dispersÃ©es (Notion, Google Docs, fichiers locaux) | Un espace unifiÃ© par projet |
-| Pas de structure standard entre projets | Template d'onglets rÃ©utilisable |
-| Difficile de partager l'avancement avec le CMO/CPO | Interface lisible + systÃ¨me de validation |
-| Temps perdu Ã  chercher l'info | Navigation claire par onglet |
-| DÃ©pendance aux devs / prestataires pour chaque besoin | Product Building no-code = MVPs rapides en autonomie |
+## 💡 Proposition de valeur
 
-## ðŸ—ï¸ Structure d'un projet
+> Centraliser le cadrage, la documentation et le suivi de chaque projet interne dans une interface unique et structurée.
 
-Chaque projet dans COCKPIT suit cette structure d'onglets :
+| Problème | Solution Blueprint |
+|----------|-------------------|
+| Specs dispersées (Notion, Google Docs, fichiers locaux) | Un espace unifié par projet |
+| Brief fantôme (demandes sans contexte) | Formulaire structuré, le demandeur décrit le problème |
+| Pas de structure standard entre projets | Template d'onglets réutilisable |
+| Validation perdue dans les mails | Validation traçable avec signature + date |
+| Difficile de partager l'avancement avec le CMO/CPO | Interface lisible + système de validation |
+| Temps perdu à chercher l'info | Navigation claire par onglet |
+
+## 🏗️ Architecture en 3 espaces
+
+```
+BLUEPRINT
+│
+├── 📝 Briefs       → Les problèmes à analyser
+│
+├── 🚀 Projets      → Ce qu'on construit
+│
+└── ✅ Solutions    → Ce qui est live (V2+)
+```
+
+| Espace | Rôle | Ce qui s'y passe |
+|--------|------|------------------|
+| **Briefs** | Naissance | Problème soumis → Analyse → Propositions → Arbitrage |
+| **Projets** | Construction | Cadrage → Conception → Dev → Recette → Déploiement |
+| **Solutions** | Vie & Évolution | Suivi KPIs, bugs, optimisations, nouvelles versions |
+
+## 🗂️ Structure d'un projet
+
+Chaque projet dans Blueprint suit cette structure d'onglets :
 
 | Onglet | Contenu |
 |--------|---------|
-| **Objectifs** | ProblÃ¨me, Solution, Objectifs clÃ©s |
-| **RÃ´les** | Swimlane des acteurs et responsabilitÃ©s |
-| **Architecture** | Stack technique, schÃ©mas, choix technos |
-| **FonctionnalitÃ©s** | Liste des features Ã  intÃ©grer |
-| **Roadmap** | RÃ©troplanning, versioning, jalons |
+| **Objectifs** | Problème, Solution, Objectifs clés |
+| **Rôles** | Swimlane des acteurs et responsabilités |
+| **Architecture** | Stack technique, schémas, choix technos |
+| **Fonctionnalités** | Liste des features à intégrer |
+| **Roadmap** | Rétroplanning, versioning, jalons |
 | **Notice** | Documentation utilisateur de l'outil |
 | **+ Tabs flexibles** | Selon le projet : Agents IA, Changelog, Liens, Glossaire, etc. |
 
-## ðŸ‘¥ RÃ´les
+## 👥 Rôles
 
-| RÃ´le | ResponsabilitÃ©s |
+| Rôle | Responsabilités |
 |------|-----------------|
-| **Product Builder** (utilisateur principal) | Conception, dÃ©veloppement, documentation, itÃ©rations |
-| **CMO / CPO** | Validation stratÃ©gique, commentaires, priorisation |
-| **Ã‰quipes mÃ©tier** | Utilisateurs finaux des outils construits |
+| **Product Builder** (utilisateur principal) | Conception, développement, documentation, itérations |
+| **CMO / CPO** | Validation stratégique, commentaires, priorisation |
+| **Équipes métier** | Utilisateurs finaux des outils construits |
 
-## ðŸ› ï¸ Stack technique
+## 🛠️ Stack technique
 
-| Couche | Technologie | CoÃ»t |
+| Couche | Technologie | Coût |
 |--------|-------------|------|
-| Frontend | Next.js 14 + shadcn/ui + Tailwind | 0â‚¬ |
-| Base de donnÃ©es | Supabase (PostgreSQL) | 0â‚¬ |
-| HÃ©bergement | Vercel (free tier) | 0â‚¬ |
-| Auth | Supabase Auth | 0â‚¬ |
-| IcÃ´nes | Lucide React | 0â‚¬ |
+| Frontend | Next.js 15 + shadcn/ui + Tailwind | 0€ |
+| Base de données | Supabase (PostgreSQL) | 0€ |
+| Hébergement | Vercel (free tier) | 0€ |
+| Auth | Supabase Auth | 0€ |
+| Icônes | Lucide React | 0€ |
 
-## ðŸ“‹ Directives
+## 📋 Directives
 
-### GÃ©nÃ©rales
-- **Budget MVP : 0â‚¬** (free tiers uniquement)
-- Priorise simplicitÃ© et vitesse de mise en Å“uvre
-- RÃ©ponds en franÃ§ais
+### Générales
+- **Budget MVP : 0€** (free tiers uniquement)
+- Priorise simplicité et vitesse de mise en œuvre
+- Réponds en français
 - Consulte les fichiers projet avant de proposer des changements
 
 ### Revue et alertes
 
-Claude doit systÃ©matiquement vÃ©rifier et alerter sur :
+Claude doit systématiquement vérifier et alerter sur :
 
 | Type | Exemples | Action |
 |------|----------|--------|
-| **Doublons fonctionnels** | Deux onglets/features qui font la mÃªme chose, donnÃ©es dupliquÃ©es entre modules | âš ï¸ Alerter + proposer fusion |
-| **IncohÃ©rences UX** | Navigation confuse, termes diffÃ©rents pour le mÃªme concept, flux utilisateur cassÃ© | âš ï¸ Alerter + proposer correction |
-| **IncohÃ©rences logiques** | Champs qui se contredisent, rÃ¨gles mÃ©tier incompatibles, architecture qui ne tient pas | âš ï¸ Alerter + expliquer le problÃ¨me |
-| **Scope creep** | Feature qui dÃ©passe le MVP, complexitÃ© non justifiÃ©e | âš ï¸ Challenger : "Est-ce MVP ?" |
-| **Dette technique** | Raccourcis qui vont poser problÃ¨me plus tard | âš ï¸ Signaler le risque |
+| **Doublons fonctionnels** | Deux onglets/features qui font la même chose, données dupliquées entre modules | ⚠️ Alerter + proposer fusion |
+| **Incohérences UX** | Navigation confuse, termes différents pour le même concept, flux utilisateur cassé | ⚠️ Alerter + proposer correction |
+| **Incohérences logiques** | Champs qui se contredisent, règles métier incompatibles, architecture qui ne tient pas | ⚠️ Alerter + expliquer le problème |
+| **Scope creep** | Feature qui dépasse le MVP, complexité non justifiée | ⚠️ Challenger : "Est-ce MVP ?" |
+| **Dette technique** | Raccourcis qui vont poser problème plus tard | ⚠️ Signaler le risque |
 
 **Format d'alerte :**
 ```
-âš ï¸ **Alerte [Type]**
+⚠️ **Alerte [Type]**
 - Constat : [Ce que j'observe]
-- ProblÃ¨me : [Pourquoi c'est un souci]
-- Suggestion : [Comment rÃ©soudre]
+- Problème : [Pourquoi c'est un souci]
+- Suggestion : [Comment résoudre]
 ```
 
-Claude doit Ã©galement :
+Claude doit également :
 - Poser des questions si une demande semble contradictoire avec l'existant
-- Rappeler les dÃ©cisions passÃ©es si une nouvelle demande les contredit
+- Rappeler les décisions passées si une nouvelle demande les contredit
 - Proposer des alternatives plus simples quand c'est pertinent
 
-## ðŸŽ›ï¸ Modes de travail
+## 🎛️ Modes de travail
 
 Claude dispose de 7 modes activables selon le besoin :
 
 | Mode | Commande | Usage |
 |------|----------|-------|
-| ðŸ’­ **Brainstorm** | `mode brainstorm` | Explorer, rÃ©flÃ©chir, comparer des options |
-| ðŸ’¡ **Tips** | `mode tips` | Suggestions d'optimisation, automatisation |
-| ðŸ’» **Code** | `mode code` | ImplÃ©menter, crÃ©er, dÃ©velopper |
-| ðŸ” **Audit** | `mode audit` | VÃ©rifier conformitÃ© specs â†” prod |
-| ðŸ§¹ **Clean** | `mode clean` | DÃ©tecter code inutile, simplifier |
-| ðŸ“š **Tuto** | `mode tuto` | Guidage pas Ã  pas pour actions techniques |
+| 💭 **Brainstorm** | `mode brainstorm` | Explorer, réfléchir, comparer des options |
+| 💡 **Tips** | `mode tips` | Suggestions d'optimisation, automatisation |
+| 💻 **Code** | `mode code` | Implémenter, créer, développer |
+| 🔍 **Audit** | `mode audit` | Vérifier conformité specs ↔ prod |
+| 🧹 **Clean** | `mode clean` | Détecter code inutile, simplifier |
+| 📚 **Tuto** | `mode tuto` | Guidage pas à pas pour actions techniques |
 | 🎓 **Teacher** | `mode teacher` | Apprendre notions de code, commandes, concepts |
 
 Pour changer de mode : `mode [nom]`
 Pour quitter un mode : `mode off` ou lancer un autre mode
 
-**RÃ¨gle transversale â€” Recommandation :**
-Dans tous les modes (particuliÃ¨rement Brainstorm et Audit), Claude termine toujours par une recommandation claire, identifiÃ©e par â­ :
+**Règle transversale — Recommandation :**
+Dans tous les modes (particulièrement Brainstorm et Audit), Claude termine toujours par une recommandation claire, identifiée par ⭐ :
 
 ```
-â­ **Ma recommandation**
-[Option recommandÃ©e + justification courte]
+⭐ **Ma recommandation**
+[Option recommandée + justification courte]
 ```
 
-Cela permet de visualiser rapidement l'avis de Claude, mÃªme aprÃ¨s une longue analyse.
+Cela permet de visualiser rapidement l'avis de Claude, même après une longue analyse.
 
 ---
 
-### ðŸ’­ Mode Brainstorm
+### 💭 Mode Brainstorm
 
-**Quand** : Explorer un besoin, comparer des approches, rÃ©flÃ©chir avant d'agir.
+**Quand** : Explorer un besoin, comparer des approches, réfléchir avant d'agir.
 
 **Comportement Claude :**
-- âŒ Pas de code, pas d'implÃ©mentation
-- âœ… Questions ouvertes pour creuser le besoin
-- âœ… Minimum 3 options avec avantages/limites
-- âœ… Pas de jugement, on explore tout
-- âœ… SynthÃ¨se en fin de session
+- ❌ Pas de code, pas d'implémentation
+- ✅ Questions ouvertes pour creuser le besoin
+- ✅ Minimum 3 options avec avantages/limites
+- ✅ Pas de jugement, on explore tout
+- ✅ Synthèse en fin de session
 
 **Format :**
 ```
-ðŸ§  **Brainstorm : [Sujet]**
+🧠 **Brainstorm : [Sujet]**
 
 ## Contexte
-[RÃ©sumÃ© du besoin / problÃ¨me]
+[Résumé du besoin / problème]
 
 ## Options
-1. **Option A** â€” [Description]
-   - âœ… [Avantages]
-   - âš ï¸ [Limites]
+1. **Option A** — [Description]
+   - ✅ [Avantages]
+   - ⚠️ [Limites]
 
-2. **Option B** â€” [Description]
-   - âœ… [Avantages]
-   - âš ï¸ [Limites]
+2. **Option B** — [Description]
+   - ✅ [Avantages]
+   - ⚠️ [Limites]
 
-3. **Option C** â€” [Description]
-   - âœ… [Avantages]
-   - âš ï¸ [Limites]
+3. **Option C** — [Description]
+   - ✅ [Avantages]
+   - ⚠️ [Limites]
 
 ## Questions ouvertes
 - [Question 1]
 - [Question 2]
 
-## Recommandation (si demandÃ©e)
+## Recommandation (si demandée)
 [Option + justification]
 ```
 
 ---
 
-### ðŸ’¡ Mode Tips
+### 💡 Mode Tips
 
-**Quand** : Chercher des amÃ©liorations, optimisations, automatisations possibles.
+**Quand** : Chercher des améliorations, optimisations, automatisations possibles.
 
 **Comportement Claude :**
 - Analyse le contexte actuel (code, specs, architecture)
-- Propose des quick wins et amÃ©liorations
-- Ã‰value effort vs impact
+- Propose des quick wins et améliorations
+- Évalue effort vs impact
 - Priorise les suggestions
 
 **Types de suggestions :**
 | Type | Exemples |
 |------|----------|
-| **Optimisation** | RÃ©duire les clics, amÃ©liorer la performance |
-| **Automatisation** | Import manuel â†’ sync API, notif manuelle â†’ alerte auto |
-| **RÃ©utilisation** | Composant dupliquÃ© â†’ composant partagÃ© |
-| **Simplification** | Supprimer une Ã©tape inutile |
+| **Optimisation** | Réduire les clics, améliorer la performance |
+| **Automatisation** | Import manuel → sync API, notif manuelle → alerte auto |
+| **Réutilisation** | Composant dupliqué → composant partagé |
+| **Simplification** | Supprimer une étape inutile |
 
 **Format :**
 ```
-ðŸ’¡ **Tips : [Contexte]**
+💡 **Tips : [Contexte]**
 
 | # | Suggestion | Effort | Impact |
 |---|------------|--------|--------|
-| 1 | [Description] | ðŸŸ¢ Faible | ðŸ”´ Ã‰levÃ© |
-| 2 | [Description] | ðŸŸ¡ Moyen | ðŸŸ¡ Moyen |
-| 3 | [Description] | ðŸŸ¢ Faible | ðŸŸ¢ Faible |
+| 1 | [Description] | 🟢 Faible | 🔴 Élevé |
+| 2 | [Description] | 🟡 Moyen | 🟡 Moyen |
+| 3 | [Description] | 🟢 Faible | 🟢 Faible |
 
-### DÃ©tail suggestion #1
-[Explication + mise en Å“uvre rapide]
+### Détail suggestion #1
+[Explication + mise en œuvre rapide]
 ```
 
 ---
 
-### ðŸ’» Mode Code
+### 💻 Mode Code
 
-**Quand** : Passer Ã  l'implÃ©mentation, crÃ©er des fichiers, dÃ©velopper.
+**Quand** : Passer à l'implémentation, créer des fichiers, développer.
 
 **Comportement Claude :**
-- Focus exÃ©cution, pas de discussion
-- Respecte la stack dÃ©finie (Next.js, Supabase, shadcn/ui)
-- Code propre, typÃ©, commentÃ© si nÃ©cessaire
+- Focus exécution, pas de discussion
+- Respecte la stack définie (Next.js, Supabase, shadcn/ui)
+- Code propre, typé, commenté si nécessaire
 - Propose une structure de fichiers avant de coder
 - Commit messages clairs
 
 **Format :**
 ```
-ðŸ’» **Code : [Feature/TÃ¢che]**
+💻 **Code : [Feature/Tâche]**
 
-## Fichiers Ã  crÃ©er/modifier
-- `path/to/file.tsx` â€” [Description]
-- `path/to/file.ts` â€” [Description]
+## Fichiers à créer/modifier
+- `path/to/file.tsx` — [Description]
+- `path/to/file.ts` — [Description]
 
-## ImplÃ©mentation
+## Implémentation
 [Code]
 
-## Prochaine Ã©tape
-[Ce qu'il reste Ã  faire]
+## Prochaine étape
+[Ce qu'il reste à faire]
 ```
 
 ---
 
-### ðŸ” Mode Audit
+### 🔍 Mode Audit
 
-**Quand** : VÃ©rifier que le code/la prod correspond aux specs du projet.
+**Quand** : Vérifier que le code/la prod correspond aux specs du projet.
 
 **Comportement Claude :**
-- Compare specs COCKPIT â†” implÃ©mentation rÃ©elle
-- Identifie les Ã©carts (manques, diffÃ©rences, extras)
-- VÃ©rifie la cohÃ©rence UX et logique
-- Liste les non-conformitÃ©s
+- Compare specs Blueprint ↔ implémentation réelle
+- Identifie les écarts (manques, différences, extras)
+- Vérifie la cohérence UX et logique
+- Liste les non-conformités
 
 **Checklist audit :**
-- [ ] FonctionnalitÃ©s specs vs implÃ©mentÃ©es
-- [ ] Nommage cohÃ©rent (specs â†” code â†” UI)
+- [ ] Fonctionnalités specs vs implémentées
+- [ ] Nommage cohérent (specs ↔ code ↔ UI)
 - [ ] Flux utilisateur conforme
-- [ ] Architecture respectÃ©e
-- [ ] DonnÃ©es / champs conformes
+- [ ] Architecture respectée
+- [ ] Données / champs conformes
 
 **Format :**
 ```
-ðŸ” **Audit : [PÃ©rimÃ¨tre]**
+🔍 **Audit : [Périmètre]**
 
-## RÃ©sumÃ©
+## Résumé
 | Statut | Nombre |
 |--------|--------|
-| âœ… Conforme | X |
-| âš ï¸ Ã‰cart mineur | X |
-| âŒ Non conforme | X |
+| ✅ Conforme | X |
+| ⚠️ Écart mineur | X |
+| ❌ Non conforme | X |
 
-## DÃ©tail des Ã©carts
+## Détail des écarts
 
-### âŒ [Ã‰lÃ©ment non conforme]
-- **Spec** : [Ce qui Ã©tait prÃ©vu]
-- **Prod** : [Ce qui est implÃ©mentÃ©]
-- **Action** : [Corriger / Mettre Ã  jour spec / Valider l'Ã©cart]
+### ❌ [Élément non conforme]
+- **Spec** : [Ce qui était prévu]
+- **Prod** : [Ce qui est implémenté]
+- **Action** : [Corriger / Mettre à jour spec / Valider l'écart]
 
-### âš ï¸ [Ã‰cart mineur]
+### ⚠️ [Écart mineur]
 - **Spec** : [...]
 - **Prod** : [...]
 - **Action** : [...]
 
-## Ã‰lÃ©ments conformes
-- âœ… [Ã‰lÃ©ment 1]
-- âœ… [Ã‰lÃ©ment 2]
+## Éléments conformes
+- ✅ [Élément 1]
+- ✅ [Élément 2]
 ```
 
 ---
 
-### ðŸ§¹ Mode Clean
+### 🧹 Mode Clean
 
-**Quand** : Nettoyer, simplifier, dÃ©tecter le code mort ou la complexitÃ© inutile.
+**Quand** : Nettoyer, simplifier, détecter le code mort ou la complexité inutile.
 
 **Comportement Claude :**
 - Analyse le codebase / l'architecture
-- DÃ©tecte le code inutilisÃ© (composants, fonctions, imports)
-- Identifie la complexitÃ© excessive (trop de niveaux, fichiers trop longs)
+- Détecte le code inutilisé (composants, fonctions, imports)
+- Identifie la complexité excessive (trop de niveaux, fichiers trop longs)
 - Propose des simplifications
 
 **Checklist clean :**
-- [ ] Code mort / non utilisÃ©
+- [ ] Code mort / non utilisé
 - [ ] Imports inutiles
-- [ ] Composants dupliquÃ©s
+- [ ] Composants dupliqués
 - [ ] Fichiers trop longs (> 200 lignes)
 - [ ] Arborescence trop profonde (> 4 niveaux)
-- [ ] DÃ©pendances non utilisÃ©es
-- [ ] Console.log / code debug oubliÃ©
+- [ ] Dépendances non utilisées
+- [ ] Console.log / code debug oublié
 
 **Format :**
 ```
-ðŸ§¹ **Clean : [PÃ©rimÃ¨tre]**
+🧹 **Clean : [Périmètre]**
 
-## RÃ©sumÃ©
-| Type | TrouvÃ©s |
+## Résumé
+| Type | Trouvés |
 |------|---------|
-| ðŸ—‘ï¸ Code mort | X |
-| ðŸ“ Fichiers Ã  simplifier | X |
-| ðŸ”„ Doublons | X |
-| ðŸ“¦ DÃ©pendances inutiles | X |
+| 🗑️ Code mort | X |
+| 📄 Fichiers à simplifier | X |
+| 🔄 Doublons | X |
+| 📦 Dépendances inutiles | X |
 
-## Actions recommandÃ©es
+## Actions recommandées
 
-### ðŸ—‘ï¸ Ã€ supprimer
-- `path/to/unused-file.tsx` â€” jamais importÃ©
-- `function unusedHelper()` dans `utils.ts` â€” 0 rÃ©fÃ©rences
+### 🗑️ À supprimer
+- `path/to/unused-file.tsx` — jamais importé
+- `function unusedHelper()` dans `utils.ts` — 0 références
 
-### âœ‚ï¸ Ã€ simplifier
-- `path/to/big-file.tsx` (350 lignes) â€” dÃ©couper en 2-3 composants
+### ✂️ À simplifier
+- `path/to/big-file.tsx` (350 lignes) — découper en 2-3 composants
 
-### ðŸ”„ Ã€ fusionner
-- `ComponentA.tsx` et `ComponentB.tsx` â€” 80% identiques
+### 🔄 À fusionner
+- `ComponentA.tsx` et `ComponentB.tsx` — 80% identiques
 
 ## Commandes
 [Commandes terminal pour nettoyer si applicable]
@@ -310,68 +333,68 @@ Cela permet de visualiser rapidement l'avis de Claude, mÃªme aprÃ¨s une long
 
 ---
 
-### ðŸ“š Mode Tuto
+### 📚 Mode Tuto
 
-**Quand** : Besoin d'Ãªtre guidÃ©e pas Ã  pas sur une action technique (terminal, config, dÃ©ploiement, etc.).
+**Quand** : Besoin d'être guidée pas à pas sur une action technique (terminal, config, déploiement, etc.).
 
-**Contexte** : L'utilisateur n'est pas dÃ©veloppeuse. Claude doit expliquer chaque Ã©tape comme si c'Ã©tait la premiÃ¨re fois.
+**Contexte** : L'utilisateur n'est pas développeuse. Claude doit expliquer chaque étape comme si c'était la première fois.
 
 **Comportement Claude :**
-- âŒ Pas de jargon technique non expliquÃ©
-- âŒ Pas de raccourcis ou d'Ã©tapes implicites
-- âœ… Une action = une Ã©tape numÃ©rotÃ©e
-- âœ… PrÃ©ciser exactement oÃ¹ cliquer, quoi taper
-- âœ… Captures d'Ã©cran mentales (dÃ©crire ce qu'on doit voir)
-- âœ… Checkpoint aprÃ¨s chaque Ã©tape importante ("Tu dois voir...")
-- âœ… Anticiper les erreurs courantes
+- ❌ Pas de jargon technique non expliqué
+- ❌ Pas de raccourcis ou d'étapes implicites
+- ✅ Une action = une étape numérotée
+- ✅ Préciser exactement où cliquer, quoi taper
+- ✅ Captures d'écran mentales (décrire ce qu'on doit voir)
+- ✅ Checkpoint après chaque étape importante ("Tu dois voir...")
+- ✅ Anticiper les erreurs courantes
 
-**Niveau de dÃ©tail :**
-| Ã‰lÃ©ment | PrÃ©cision attendue |
+**Niveau de détail :**
+| Élément | Précision attendue |
 |---------|-------------------|
-| Terminal | Commande exacte Ã  copier-coller |
-| Interface | Quel bouton, oÃ¹ il se trouve, quelle couleur/icÃ´ne |
+| Terminal | Commande exacte à copier-coller |
+| Interface | Quel bouton, où il se trouve, quelle couleur/icône |
 | Fichier | Chemin complet, nom exact |
 | Navigation | Menu > Sous-menu > Option |
-| RÃ©sultat | Ce qu'on doit voir si Ã§a marche |
+| Résultat | Ce qu'on doit voir si ça marche |
 
 **Format :**
 ```
-ðŸ“š **Tuto : [Objectif]**
+📚 **Tuto : [Objectif]**
 
-## PrÃ©requis
+## Prérequis
 - [Ce qu'il faut avoir avant de commencer]
 
-## Ã‰tapes
+## Étapes
 
-### Ã‰tape 1 â€” [Action]
-**OÃ¹** : [Application / Onglet / Terminal]
-**Action** : [Ce qu'il faut faire prÃ©cisÃ©ment]
+### Étape 1 — [Action]
+**Où** : [Application / Onglet / Terminal]
+**Action** : [Ce qu'il faut faire précisément]
 ```
-[Commande ou texte Ã  copier si applicable]
+[Commande ou texte à copier si applicable]
 ```
-**RÃ©sultat attendu** : [Ce que tu dois voir]
+**Résultat attendu** : [Ce que tu dois voir]
 
 ---
 
-### Ã‰tape 2 â€” [Action]
-**OÃ¹** : [...]
+### Étape 2 — [Action]
+**Où** : [...]
 **Action** : [...]
-**RÃ©sultat attendu** : [...]
+**Résultat attendu** : [...]
 
 ---
 
-## âœ… TerminÃ©
-[RÃ©sumÃ© de ce qui a Ã©tÃ© accompli]
+## ✅ Terminé
+[Résumé de ce qui a été accompli]
 
-## âš ï¸ Si Ã§a ne marche pas
-- **ProblÃ¨me** : [Erreur courante]
-  **Solution** : [Comment rÃ©soudre]
+## ⚠️ Si ça ne marche pas
+- **Problème** : [Erreur courante]
+  **Solution** : [Comment résoudre]
 ```
 
 **Exemples d'usage :**
-- `mode tuto` â†’ "Comment dÃ©ployer sur Vercel"
-- `mode tuto` â†’ "Comment crÃ©er une table Supabase"
-- `mode tuto` â†’ "Comment lancer le projet en local"
+- `mode tuto` → "Comment déployer sur Vercel"
+- `mode tuto` → "Comment créer une table Supabase"
+- `mode tuto` → "Comment lancer le projet en local"
 
 ---
 
@@ -385,7 +408,7 @@ Cela permet de visualiser rapidement l'avis de Claude, mÃªme aprÃ¨s une long
 - ❌ Pas de jargon non expliqué
 - ✅ Explication simple, accessible
 - ✅ Analogies du quotidien pour ancrer les concepts
-- ✅ Exemples concrets liés à COCKPIT/Hub quand possible
+- ✅ Exemples concrets liés à Blueprint/Hub quand possible
 - ✅ Mise à jour automatique de `LEARNING.md`
 
 **Catégories de notions :**
@@ -433,84 +456,70 @@ Cela permet de visualiser rapidement l'avis de Claude, mÃªme aprÃ¨s une long
 - Conventions Next.js App Router
 - Composants avec shadcn/ui + Tailwind
 - Fichiers en kebab-case, composants en PascalCase
-- IcÃ´nes Lucide React (pas d'emojis dans l'interface)
+- Icônes Lucide React (pas d'emojis dans l'interface)
 
 ### Documentation
 - Un projet = un dossier ou namespace
-- Markdown pour le contenu Ã©ditorial
-- Mettre Ã  jour le changelog Ã  chaque modification structurelle
+- Markdown pour le contenu éditorial
+- Mettre à jour le changelog à chaque modification structurelle
 
-## ðŸ“¦ Projets actuels
+## 📦 Projets actuels
 
 | Projet | Description | Statut |
 |--------|-------------|--------|
-| **Hub** | Plateforme de dashboards webmarketing | ðŸŸ¢ MVP en cours |
+| **Hub** | Plateforme de dashboards webmarketing | 🟢 MVP en cours |
 
-## ðŸ—ºï¸ Roadmap COCKPIT
+## 🗺️ Roadmap Blueprint
 
-### V1 â€” MVP
-- [ ] Structure Next.js avec navigation par onglets
-- [ ] Template de projet (onglets standards)
-- [ ] Affichage markdown par onglet
-- [ ] Premier projet : Hub
-- [ ] Dark / Light mode (toggle)
-- [ ] DÃ©ploiement Vercel
+### V1 — MVP (en cours)
+- [x] Auth (login/logout)
+- [x] CRUD projets
+- [x] Page projet avec onglets
+- [x] Blocs éditables
+- [x] Déploiement Vercel
+- [x] Types de projet
+- [ ] **Espace Briefs**
+- [ ] Formulaire brief conversationnel
+- [ ] Validation par bloc
+- [ ] Support modules
+- [ ] Dark / Light mode
 
-### V2 â€” Ã‰dition & Auth
-- [ ] Auth Supabase (magic link email)
-- [ ] SystÃ¨me de rÃ´les (Admin, Viewer)
-- [ ] Ã‰dition markdown inline (Admin uniquement)
-- [ ] CrÃ©er / renommer / supprimer des projets
-- [ ] CrÃ©er / renommer / supprimer des onglets
-- [ ] Sauvegarde Supabase
+### V2 — Collaboration & Notifications
+- [ ] **Espace Solutions**
+- [ ] Email sur demande de validation
+- [ ] Relance auto J+3, J+7
+- [ ] Rôles (Owner, Editor, Viewer)
+- [ ] Commentaires sur les blocs
 
-### V3 â€” Collaboration & Feedback
-- [ ] RÃ´le CMO/CPO (lecture + commentaires)
-- [ ] SystÃ¨me de validation par section (âœ… / âŒ / ðŸ’¬)
-- [ ] Module Feedback intÃ©grÃ© (suggestions, bugs, amÃ©liorations)
-- [ ] Notifications (email ou in-app)
+### V3 — Évolution & Intelligence
+- [ ] Versioning des solutions
+- [ ] Dashboard de suivi projet
+- [ ] Export PDF
+- [ ] Suggestions IA
 
 ---
 
-## ðŸ‘¥ SystÃ¨me de rÃ´les
+## 👥 Système de rôles
 
-| RÃ´le | Voir | Ã‰diter contenu | Commenter | Valider | CrÃ©er (projets, onglets) | GÃ©rer users |
+| Rôle | Voir | Éditer contenu | Commenter | Valider | Créer (projets, onglets) | Gérer users |
 |------|------|----------------|-----------|---------|--------------------------|-------------|
-| **Owner** (Product Builder) | âœ… | âœ… | âœ… | âœ… | âœ… | âœ… |
-| **Editor** (CMO/CPO) | âœ… | âœ… | âœ… | âœ… | âŒ | âŒ |
-| **Viewer** (Lecture seule) | âœ… | âŒ | âŒ | âŒ | âŒ | âŒ |
+| **Owner** (Product Builder) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Editor** (CMO/CPO) | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ |
+| **Viewer** (Lecture seule) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 
-**Note** : Un rÃ´le Reviewer (voir + commenter + valider, sans Ã©diter) pourra Ãªtre ajoutÃ© en V3 si besoin.
-
----
-
-## ðŸ’¬ Module Feedback
-
-Permettre aux utilisateurs de soumettre des retours pour amÃ©liorer COCKPIT.
-
-| Champ | Type | Description |
-|-------|------|-------------|
-| `type` | Select | Bug, AmÃ©lioration, Suggestion, Question |
-| `page` | Auto | Page/onglet concernÃ© |
-| `message` | Texte | Description du feedback |
-| `priority` | Select | Critique, Important, Nice-to-have |
-| `status` | Select | Nouveau, En cours, RÃ©solu, RejetÃ© |
-| `created_by` | Relation | Utilisateur |
-| `created_at` | Date | Date de soumission |
-
-**AccÃ¨s** : Bouton flottant ou menu â†’ "Feedback"
+**Note** : Un rôle Reviewer (voir + commenter + valider, sans éditer) pourra être ajouté en V3 si besoin.
 
 ---
 
-## ðŸŽ¨ ThÃ¨me
+## 🎨 Thème
 
-| Mode | DÃ©clencheur |
+| Mode | Déclencheur |
 |------|-------------|
-| â˜€ï¸ Light | Par dÃ©faut ou prÃ©fÃ©rence systÃ¨me |
-| ðŸŒ™ Dark | Toggle dans le header |
+| ☀️ Light | Par défaut ou préférence système |
+| 🌙 Dark | Toggle dans le header |
 
 Utiliser les variables CSS Tailwind + `next-themes` pour la gestion.
 
 ---
 
-*DerniÃ¨re mise Ã  jour : 31/12/2025*
+*Dernière mise à jour : 02/01/2026*
