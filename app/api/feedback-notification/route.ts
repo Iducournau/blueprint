@@ -5,7 +5,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email du Product Builder qui reçoit les notifications
-const PRODUCT_BUILDER_EMAIL = process.env.PRODUCT_BUILDER_EMAIL || 'ton-email@youschool.fr';
+const PRODUCT_BUILDER_EMAIL = process.env.PRODUCT_BUILDER_EMAIL || 'iducournau@youschool.fr';
 
 // Mapping des catégories pour l'affichage
 const categoryLabels: Record<string, string> = {
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
     // Envoyer l'email via Resend
     const { data, error } = await resend.emails.send({
-      from: 'Blueprint <notifications@youschool.fr>', // Adapte ce domaine
+      from: 'Blueprint <onboarding@resend.dev>',
       to: [PRODUCT_BUILDER_EMAIL],
       subject: `📬 Nouveau feedback : ${title}`,
       html: htmlContent,
