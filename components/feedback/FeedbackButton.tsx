@@ -56,7 +56,7 @@ export function FeedbackButton() {
         return;
       }
 
-      // Insérer le feedback
+      // Insérer le feedback avec l'email de l'auteur
       const { data: feedback, error } = await supabase
         .from('feedbacks')
         .insert({
@@ -64,6 +64,7 @@ export function FeedbackButton() {
           description: description.trim() || null,
           category,
           created_by: user.id,
+          user_email: user.email,  // 👈 Stocker l'email
         })
         .select()
         .single();

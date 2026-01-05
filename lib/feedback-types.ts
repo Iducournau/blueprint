@@ -1,6 +1,6 @@
 // =============================================
 // BLUEPRINT — Types Feedbacks
-// À ajouter dans lib/types.ts
+// À ajouter dans lib/types.ts ou lib/feedback-types.ts
 // =============================================
 
 export type FeedbackStatus = 'nouveau' | 'en_cours' | 'traite';
@@ -14,13 +14,9 @@ export interface Feedback {
   category: FeedbackCategory;
   status: FeedbackStatus;
   created_by: string;
+  user_email: string | null;  // Email de l'auteur
   created_at: string;
   updated_at: string;
-  // Jointure optionnelle avec le profil utilisateur
-  profiles?: {
-    full_name: string | null;
-    email: string | null;
-  };
 }
 
 export interface FeedbackInsert {
@@ -28,6 +24,7 @@ export interface FeedbackInsert {
   description?: string;
   category?: FeedbackCategory;
   created_by: string;
+  user_email?: string;
 }
 
 export interface FeedbackUpdate {
@@ -37,11 +34,11 @@ export interface FeedbackUpdate {
   status?: FeedbackStatus;
 }
 
-// Colonnes du Kanban
-export const FEEDBACK_COLUMNS: { id: FeedbackStatus; label: string; color: string }[] = [
-  { id: 'nouveau', label: '🟡 Nouveau', color: 'bg-yellow-100 border-yellow-300' },
-  { id: 'en_cours', label: '🔵 En cours', color: 'bg-blue-100 border-blue-300' },
-  { id: 'traite', label: '✅ Traité', color: 'bg-green-100 border-green-300' },
+// Colonnes / Statuts
+export const FEEDBACK_COLUMNS: { id: FeedbackStatus; label: string }[] = [
+  { id: 'nouveau', label: '🟡 Nouveau' },
+  { id: 'en_cours', label: '🔵 En cours' },
+  { id: 'traite', label: '✅ Traité' },
 ];
 
 // Catégories de feedback
