@@ -28,6 +28,7 @@ import {
   SheetContent,
   SheetDescription,
   SheetHeader,
+  SheetBody,  // ✅ AJOUT
   SheetTitle,
 } from '@/components/ui/sheet';
 import {
@@ -151,11 +152,12 @@ export function FeedbackRow({ feedback, onStatusChange, onDelete }: FeedbackRowP
             </SheetDescription>
           </SheetHeader>
 
-          <div className="mt-6 space-y-6">
+          {/* ✅ CHANGEMENT : SheetBody au lieu de div */}
+          <SheetBody className="space-y-6">
             {/* Description */}
             {feedback.description ? (
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground mb-2">Description</h4>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-muted-foreground">Description</h4>
                 <p className="text-sm whitespace-pre-wrap">{feedback.description}</p>
               </div>
             ) : (
@@ -163,8 +165,8 @@ export function FeedbackRow({ feedback, onStatusChange, onDelete }: FeedbackRowP
             )}
 
             {/* Changer le statut */}
-            <div>
-              <h4 className="text-sm font-medium text-muted-foreground mb-2">Statut</h4>
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium text-muted-foreground">Statut</h4>
               <Select
                 value={feedback.status}
                 onValueChange={(value) => onStatusChange(feedback.id, value as FeedbackStatus)}
@@ -196,7 +198,7 @@ export function FeedbackRow({ feedback, onStatusChange, onDelete }: FeedbackRowP
                 Supprimer
               </Button>
             </div>
-          </div>
+          </SheetBody>
         </SheetContent>
       </Sheet>
 
