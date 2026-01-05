@@ -1,31 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, DM_Serif_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { SidebarProvider } from "@/contexts/SidebarContext";
+import { MainLayout } from "@/components/layout/MainLayout";
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans'
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({ 
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const dmSerif = DM_Serif_Display({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-dm-serif'
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
   title: "Blueprint",
-  description: "Outil de pilotage de projets",
+  description: "Pilotage de projets digitaux internes",
 };
 
 export default function RootLayout({
@@ -34,11 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={inter.variable}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${dmSerif.variable} antialiased`}
-      >
-        {children}
+    <html lang="fr">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className={`${inter.variable} font-sans antialiased`}>
+        <SidebarProvider>
+          <MainLayout>{children}</MainLayout>
+        </SidebarProvider>
       </body>
     </html>
   );

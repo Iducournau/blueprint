@@ -19,7 +19,10 @@ import {
   Calendar,
   Ban,
   RefreshCw,
-  MoreHorizontal
+  MoreHorizontal,
+  Plus,
+  Lightbulb,
+  Rocket
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -41,9 +44,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { StatusBadge } from '@/components/shared/StatusBadge';
+import { ProposalCard } from '@/components/briefs/ProposalCard';
+import { ProposalForm } from '@/components/briefs/ProposalForm';
+import { SelectProposalDialog } from '@/components/briefs/SelectProposalDialog';
 import { 
-  Brief, 
+  Brief,
+  BriefProposal,
+  BriefProposalInsert,
   BriefStatus,
   BriefPriority,
   BRIEF_STATUS_CONFIG, 
@@ -62,14 +69,23 @@ export default function BriefDetailPage() {
   const params = useParams();
   
   const [brief, setBrief] = useState<Brief | null>(null);
+  const [proposals, setProposals] = useState<BriefProposal[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+
+  // Form states
+  const [showProposalForm, setShowProposalForm] = useState(false);
+  const [editingProposal, setEditingProposal] = useState<BriefProposal | null>(null);
+  const [selectingProposal, setSelectingProposal] = useState<BriefProposal | null>(null);
+  const [showSelectDialog, setShowSelectDialog] = useState(false);
+  const [converting, setConverting] = useState(false);
 
   const briefId = params.id as string;
 
   useEffect(() => {
     if (briefId) {
       fetchBrief();
+      fetchProposals();
     }
   }, [briefId]);
 
@@ -90,6 +106,18 @@ export default function BriefDetailPage() {
     }
     
     setLoading(false);
+  }
+
+  async function fetchProposals() {
+    const { data, error } = await supabase
+      .from('brief_proposals')
+      .select('*')
+      .eq('brief_id', briefId)
+      .order('created_at', { ascending: true });
+
+    if (!error) {
+      setProposals(data || []);
+    }
   }
 
   async function updateStatus(newStatus: BriefStatus) {
@@ -139,13 +167,135 @@ export default function BriefDetailPage() {
     }
   }
 
+  // === PROPOSITIONS ===
+
+  async function handleAddProposal(data: BriefProposalInsert) {
+    const { error } = await supabase
+      .from('brief_proposals')
+      .insert(data);
+
+    if (!error) {
+      fetchProposals();
+      // Passer le statut en "analyzing" si c'est la première proposition
+      if (brief?.status === 'pending_analysis') {
+        updateStatus('analyzing');
+      }
+    }
+  }
+
+  async function handleUpdateProposal(data: BriefProposalInsert) {
+    if (!editingProposal) return;
+
+    const { error } = await supabase
+      .from('brief_proposals')
+      .update({
+        name: data.name,
+        description: data.description,
+        format: data.format,
+        effort: data.effort,
+        pros: data.pros,
+        cons: data.cons,
+      })
+      .eq('id', editingProposal.id);
+
+    if (!error) {
+      fetchProposals();
+    }
+    setEditingProposal(null);
+  }
+
+  async function handleDeleteProposal(id: string) {
+    if (!confirm('Supprimer cette proposition ?')) return;
+
+    const { error } = await supabase
+      .from('brief_proposals')
+      .delete()
+      .eq('id', id);
+
+    if (!error) {
+      fetchProposals();
+    }
+  }
+
+  async function handleSelectProposal(reason: string) {
+    if (!selectingProposal) return;
+
+    // Désélectionner toutes les autres propositions
+    await supabase
+      .from('brief_proposals')
+      .update({ is_selected: false, selection_reason: null })
+      .eq('brief_id', briefId);
+
+    // Sélectionner celle-ci
+    const { error } = await supabase
+      .from('brief_proposals')
+      .update({ 
+        is_selected: true, 
+        selection_reason: reason || null 
+      })
+      .eq('id', selectingProposal.id);
+
+    if (!error) {
+      // Mettre à jour le statut du brief
+      updateStatus('proposals_ready');
+      fetchProposals();
+    }
+    setSelectingProposal(null);
+  }
+
+  // === CONVERSION EN PROJET ===
+
+  async function handleConvertToProject() {
+    if (!brief) return;
+
+    const selectedProposal = proposals.find(p => p.is_selected);
+    if (!selectedProposal) return;
+
+    setConverting(true);
+
+    // Récupérer l'utilisateur
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      setConverting(false);
+      return;
+    }
+
+    // Créer le projet
+    const { data: project, error } = await supabase
+      .from('projects')
+      .insert({
+        name: selectedProposal.name,
+        description: selectedProposal.description || brief.situation,
+        type: 'outil', // Par défaut, à adapter
+        has_modules: false,
+        status: 'cadrage',
+        brief_id: brief.id,
+        user_id: session.user.id,
+      })
+      .select()
+      .single();
+
+    if (!error && project) {
+      // Mettre à jour le statut du brief
+      await supabase
+        .from('briefs')
+        .update({ status: 'validated' })
+        .eq('id', brief.id);
+
+      // Rediriger vers le projet
+      router.push(`/project/${project.id}`);
+    }
+
+    setConverting(false);
+  }
+
   // Formater les équipes pour l'affichage
   function formatTeams(teams: string[]) {
     if (!teams || teams.length === 0) return [];
     
     return teams.map(t => {
       if (t.includes(':')) {
-        const [parent, pole] = t.split(':');
+        const [parent] = t.split(':');
         const parentOption = AFFECTED_TEAMS_OPTIONS.find(o => o.value === parent);
         const poleOption = parentOption?.poles?.find(p => p.value === t);
         return poleOption?.label || t;
@@ -170,11 +320,12 @@ export default function BriefDetailPage() {
   const formattedTeams = formatTeams(brief.affected_teams || []);
   const constraints = brief.constraints as Record<string, string> | null;
   const resources = brief.resources as Array<{ type: string; url?: string; content?: string; description?: string }> | null;
+  const selectedProposal = proposals.find(p => p.is_selected);
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b sticky top-0 z-10">
+      <header className="bg-white border-b sticky top-16 z-10">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Button variant="ghost" onClick={() => router.push('/briefs')}>
@@ -231,9 +382,11 @@ export default function BriefDetailPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(BRIEF_STATUS_CONFIG).map(([value, config]) => (
+                  {(Object.entries(BRIEF_STATUS_CONFIG) as [BriefStatus, typeof BRIEF_STATUS_CONFIG[BriefStatus]][]).map(([value, config]) => (
                     <SelectItem key={value} value={value}>
-                      <span className={config.color}>{config.label}</span>
+                      <span className={`inline-flex items-center gap-2 ${config.color}`}>
+                        {config.label}
+                      </span>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -248,10 +401,10 @@ export default function BriefDetailPage() {
                 disabled={updating}
               >
                 <SelectTrigger className="w-[160px]">
-                  <SelectValue placeholder="À définir" />
+                  <SelectValue placeholder="Non définie" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(PRIORITY_CONFIG).map(([value, config]) => (
+                  {(Object.entries(PRIORITY_CONFIG) as [BriefPriority, typeof PRIORITY_CONFIG[BriefPriority]][]).map(([value, config]) => (
                     <SelectItem key={value} value={value}>
                       {config.emoji} {config.label}
                     </SelectItem>
@@ -447,21 +600,77 @@ export default function BriefDetailPage() {
             </Card>
           )}
 
-          {/* Section Propositions (Sprint 2) */}
-          <Card className="border-dashed">
+          {/* ====== SECTION PROPOSITIONS ====== */}
+          <Card className={selectedProposal ? 'border-green-200 bg-green-50/30' : ''}>
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-medium flex items-center gap-2">
-                <Target className="w-4 h-4 text-gray-500" />
-                Propositions de solutions
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base font-medium flex items-center gap-2">
+                  <Lightbulb className="w-4 h-4 text-gray-500" />
+                  Propositions de solutions
+                  {proposals.length > 0 && (
+                    <span className="text-sm font-normal text-gray-500">
+                      ({proposals.length})
+                    </span>
+                  )}
+                </CardTitle>
+                <Button 
+                  size="sm" 
+                  onClick={() => {
+                    setEditingProposal(null);
+                    setShowProposalForm(true);
+                  }}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Ajouter
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-8 text-gray-500">
-                <p className="mb-2">Aucune proposition pour le moment</p>
-                <p className="text-sm text-gray-400">
-                  Les propositions seront ajoutées après analyse du brief
-                </p>
-              </div>
+              {proposals.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">
+                  <Lightbulb className="w-8 h-8 mx-auto mb-3 text-gray-300" />
+                  <p className="mb-2">Aucune proposition pour le moment</p>
+                  <p className="text-sm text-gray-400">
+                    Ajoutez des propositions de solutions après analyse du brief
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {proposals.map((proposal) => (
+                    <ProposalCard
+                      key={proposal.id}
+                      proposal={proposal}
+                      onSelect={() => {
+                        setSelectingProposal(proposal);
+                        setShowSelectDialog(true);
+                      }}
+                      onEdit={() => {
+                        setEditingProposal(proposal);
+                        setShowProposalForm(true);
+                      }}
+                      onDelete={() => handleDeleteProposal(proposal.id)}
+                      disabled={brief.status === 'validated'}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Bouton Convertir en projet */}
+              {selectedProposal && brief.status !== 'validated' && (
+                <div className="mt-6 pt-6 border-t border-green-200">
+                  <Button 
+                    className="w-full bg-green-600 hover:bg-green-700"
+                    onClick={handleConvertToProject}
+                    disabled={converting}
+                  >
+                    <Rocket className="w-4 h-4 mr-2" />
+                    {converting ? 'Conversion en cours...' : 'Convertir en projet'}
+                  </Button>
+                  <p className="text-xs text-center text-gray-500 mt-2">
+                    La proposition "{selectedProposal.name}" sera convertie en projet
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -480,6 +689,23 @@ export default function BriefDetailPage() {
           </span>
         </div>
       </main>
+
+      {/* Form Proposition */}
+      <ProposalForm
+        open={showProposalForm}
+        onOpenChange={setShowProposalForm}
+        briefId={briefId}
+        proposal={editingProposal}
+        onSubmit={editingProposal ? handleUpdateProposal : handleAddProposal}
+      />
+
+      {/* Dialog Sélection */}
+      <SelectProposalDialog
+        open={showSelectDialog}
+        onOpenChange={setShowSelectDialog}
+        proposal={selectingProposal}
+        onConfirm={handleSelectProposal}
+      />
     </div>
   );
 }
