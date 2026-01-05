@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { BriefForm } from '@/components/briefs/BriefForm';
 import { BriefInsert } from '@/lib/types';
-import { TeamSelector } from '@/components/briefs/TeamSelector';
+import TeamSelector from '@/components/briefs/TeamSelector';
 
 export default function NewBriefPage() {
   const router = useRouter();
