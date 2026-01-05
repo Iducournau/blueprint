@@ -12,7 +12,8 @@ import {
   ChevronRight,
   LogOut,
   ChevronsUpDown,
-  User
+  User,
+  MessageSquare,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
@@ -115,6 +116,12 @@ export function Sidebar() {
       icon: CheckCircle,
       disabled: true,
     },
+    {
+  href: '/feedbacks',
+  label: 'Feedbacks',
+  icon: MessageSquare,
+},
+
   ];
 
   const isActive = (href: string) => {
