@@ -1,34 +1,46 @@
-'use client';
+"use client";
 
-import { usePathname } from 'next/navigation';
-import { Sidebar } from '@/components/layout/Sidebar';
-import { useSidebar } from '@/contexts/SidebarContext';
-import { cn } from '@/lib/utils';
+import { useSidebar } from "@/contexts/SidebarContext";
+import { Sidebar } from "./Sidebar";
+import { BottomNav } from "./BottomNav";
+import { MobileHeader } from "./MobileHeader";
+import { cn } from "@/lib/utils";
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 export function MainLayout({ children }: MainLayoutProps) {
-  const pathname = usePathname();
   const { isCollapsed } = useSidebar();
 
-  // Pas de sidebar sur la page login
-  if (pathname === '/login') {
-    return <>{children}</>;
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Sidebar />
+    <div className="min-h-screen bg-background">
+      {/* Mobile header - visible only on mobile */}
+      <MobileHeader />
+
+      {/* Sidebar - hidden on mobile */}
+      <div className="hidden md:block">
+        <Sidebar />
+      </div>
+
+      {/* Main content */}
       <main
         className={cn(
-          'min-h-screen transition-all duration-300',
-          isCollapsed ? 'pl-16' : 'pl-64'
+          "min-h-screen transition-all duration-300",
+          "md:pl-[var(--sidebar-width)]",
+          "pb-20 md:pb-0"
         )}
+        style={
+          {
+            "--sidebar-width": isCollapsed ? "80px" : "256px",
+          } as React.CSSProperties
+        }
       >
         {children}
       </main>
+
+      {/* Bottom nav - visible only on mobile */}
+      <BottomNav />
     </div>
   );
 }
